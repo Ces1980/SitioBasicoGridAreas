@@ -13,6 +13,7 @@ body {
   /*Para centra la página*/
   width: 90%;
   max-width: 1000px;
+  height: 100%;
   margin: 20px auto;
   /* GRID */
   display: grid;
@@ -22,6 +23,13 @@ body {
   grid-template-columns: repeat(3, 1fr);
   /* 4 filas para la estructura */
   grid-template-rows: repeat(4, auto);
+
+  grid-template-areas:
+    "header header header"
+    "contenido contenido sidebar"
+    "widget-1 widget-2 sidebar"
+    "footer footer footer"
+  ;
 }
 
 /* Accediendo directamente a los div que se encuentran dentro de la clase */
@@ -38,21 +46,17 @@ body {
 .contenedor .header {
   background-color: #12203E;
   color: #fff;
-  /* Indicar desde donde inicia la columna hasta donde acaba */
-  grid-column-start: 1;
-  /*Cuando se sabe la cantidad de columnas que se quiere -> grid-column-end: 4;
-   */
-  /* Cuando se desconoce hasta donde va allegar nuestra columna */
-  grid-column-end: -1;
+  /* USando grid area */
+  grid-area: header;
 }
 
 .contenedor .contenido {
-  grid-column: span 2;
+  grid-area: contenido;
 }
 
 .contenedor .sidebar {
   /* El espacio del side-bar utiliza dos columnas */
-  grid-column: 3 / 4;
+  grid-area: sidebar;
   background-color: #faa43d;
   text-align: center;
   /* Uso de flex-box para centrar horizontal y verticalmente el contenido del sidebar */
@@ -78,25 +82,32 @@ body {
 
 }
 
+.contenedor .widget-1 {
+  grid-area: widget-1;
+}
+
+.contenedor .widget-2 {
+  grid-area: widget-2;
+}
+
 
 .contenedor .footer {
   background-color: #12203e;
   color: #fff;
   /*  */
-  grid-column: span 3;
+  grid-area: footer;
 }
 
 @media screen and (max-width: 768px) {
-  .contenedor .contenido {
-    grid-column: 1 / -1;
-  }
+  .contenedor {
+    grid-template-areas:
 
-  .contenedor .sidebar {
-    grid-column: 1 / -1;
+      "header header header"
+      "contenido contenido sidebar"
+      "widget-1 widget-2 sidebar"
+      "footer footer footer"
+    ;
   }
-
-  .contenedor .widget-1 {
-    grid-column: span 2;
-  }
-
 }
+
+@media (min-width: 576px) {}
